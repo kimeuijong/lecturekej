@@ -1,0 +1,8 @@
+FROM python:3.6.13-slim
+
+RUN pip install kafka-python
+
+WORKDIR /app
+COPY alert_consumer.py alert_consumer.py
+
+ENTRYPOINT ["python","-u","alert_consumer.py"]

@@ -1,0 +1,11 @@
+lecturekej\PolicyHandler.class
+lecturekej\RoomController.class
+lecturekej\RoomRepository.class
+lecturekej\CourseRegistered.class
+lecturekej\Room.class
+lecturekej\RoomApplication.class
+lecturekej\AbstractEvent$1.class
+lecturekej\RoomDeleted.class
+lecturekej\AbstractEvent.class
+lecturekej\config\kafka\KafkaProcessor.class
+lecturekej\RoomRegistered.class

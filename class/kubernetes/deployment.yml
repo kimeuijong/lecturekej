@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: class
+  labels:
+    app: class
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: class
+  template:
+    metadata:
+      labels:
+        app: class
+    spec:
+      containers:
+        - name: class
+          image: 855196134209.dkr.ecr.us-east-1.amazonaws.com/lecture-main/class:latest
+#          image: username/class:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 500m 
+          readinessProbe:
+            httpGet:
+              path: '/classes'
+              port: 8080
+            initialDelaySeconds: 20
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/classes'
+              port: 8080
+            initialDelaySeconds: 180
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5

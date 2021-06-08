@@ -1,0 +1,9 @@
+FROM python:3.6.13-slim
+
+RUN pip install flask==1.1.4
+
+WORKDIR /app
+COPY alert_web.py alert_web.py
+
+EXPOSE 8084
+ENTRYPOINT ["python","-u","alert_web.py"]

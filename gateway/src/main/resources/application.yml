@@ -1,0 +1,69 @@
+server:
+  port: 8088
+---
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: class
+          uri: http://localhost:8081
+          predicates:
+            - Path=/classes/**, /class/**, /inquiryMypages/**
+        - id: course
+          uri: http://localhost:8082
+          predicates:
+            - Path=/courses/**, /course/**, /deliveries/**, /delivery/**
+        - id: pay
+          uri: http://localhost:8083
+          predicates:
+            - Path=/payments/**, /payment/**
+        - id: room
+          uri: http://localhost:8084
+          predicates:
+            - Path=/rooms/**, /room/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+---
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: class
+          uri: http://class:8080
+          predicates:
+            - Path=/classes/**, /class/**, /inquiryMypages/**
+        - id: course
+          uri: http://course:8080
+          predicates:
+            - Path=/courses/**, /course/**, /deliveries/**, /delivery/**
+        - id: pay
+          uri: http://pay:8080
+          predicates:
+            - Path=/payments/**, /payment/**
+        - id: room
+          uri: http://room:8080
+          predicates:
+            - Path=/rooms/**, /room/**            
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080

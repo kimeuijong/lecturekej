@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alert
+  labels:
+    app: alert
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alert
+  template:
+    metadata:
+      labels:
+        app: alert
+    spec:
+      containers:
+        - name: consumer
+          image: hajeongcheol/alert_consumer:latest
+          volumeMounts:
+          - mountPath: "/tmp/logs"
+            name: volume 
+          env:
+          - name: KAFKA_URL
+            valueFrom:
+              configMapKeyRef:
+                name: kafka-config
+                key: KAFKA_URL
+          - name: LOG_FILE
+            valueFrom:
+              configMapKeyRef:
+                name: kafka-config
+                key: LOG_FILE
+        - name: web
+          image: hajeongcheol/alert_web:latest
+          ports:
+            - containerPort: 8084
+          readinessProbe:
+            httpGet:
+              path: '/alert'
+              port: 8084
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/alert'
+              port: 8084
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+    volumes:
+    - name: volume
+      persistentVolumeClaim:
+        claimName: pvc
