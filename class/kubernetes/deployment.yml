@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: class
-          image: 855196134209.dkr.ecr.us-east-1.amazonaws.com/lecture-main/class:latest
+          image: 879772956301.dkr.ecr.ap-northeast-2.amazonaws.com/lecture-main/class:latest
 #          image: username/class:latest
           ports:
             - containerPort: 8080
