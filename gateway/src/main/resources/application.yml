@@ -19,7 +19,7 @@ spring:
           predicates:
             - Path=/payments/**, /payment/**
         - id: room
-          uri: http://localhost:8084
+          uri: http://localhost:8085
           predicates:
             - Path=/rooms/**, /room/**
       globalcors:
