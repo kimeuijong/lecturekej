@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: room
-          image: username/room:latest
+          image: 879772956301.dkr.ecr.ap-northeast-2.amazonaws.com/lecture-main/pay:latest
+#          image: username/room:latest
           ports:
             - containerPort: 8080
           readinessProbe:
